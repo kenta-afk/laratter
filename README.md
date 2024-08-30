@@ -1,3 +1,3 @@
-##Laratter
+Laratter
 
 laravelの練習
