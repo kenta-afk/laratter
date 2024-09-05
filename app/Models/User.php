@@ -11,6 +11,10 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
+    public function tweets()
+    {
+        return $this->hasMany(Tweet::class);
+    }
     /**
      * The attributes that are mass assignable.
      *
