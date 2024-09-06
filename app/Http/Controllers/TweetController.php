@@ -12,7 +12,8 @@ class TweetController extends Controller
      */
     public function index()
     {
-        //
+        $tweets = Tweet::with('user')->latest()->get();
+        return view('tweets.index', compact('tweets'));
     }
 
     /**
@@ -20,7 +21,7 @@ class TweetController extends Controller
      */
     public function create()
     {
-        //
+        return view('tweets.create');
     }
 
     /**
@@ -28,7 +29,13 @@ class TweetController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'tweet' => 'required|max:255',
+        ]);
+
+        $request->user()->tweets()->create($request->only('tweet'));
+
+        return redirect()->route('tweets.index');
     }
 
     /**
@@ -36,7 +43,7 @@ class TweetController extends Controller
      */
     public function show(Tweet $tweet)
     {
-        //
+        return view('tweets.show', compact('tweet'));
     }
 
     /**
