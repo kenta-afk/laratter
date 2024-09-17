@@ -43,6 +43,7 @@ class TweetController extends Controller
      */
     public function show(Tweet $tweet)
     {
+        $tweet->load('comments');
         return view('tweets.show', compact('tweet'));
     }
 
