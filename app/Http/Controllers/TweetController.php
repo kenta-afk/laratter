@@ -77,5 +77,22 @@ class TweetController extends Controller
         $tweet->delete();
 
         return redirect()->route('tweets.index');
+
+
+    }
+
+    public function search(Request $request)
+    {
+        $query = Tweet::query();
+
+        if ($request->filled('keyword')) {
+            $keyword = $request->keyword;
+            $query->where('tweet', 'like', '%' . $keyword . '%');
+        }
+
+        $tweets = $query
+            ->latest()
+            ->paginate(10);
+        return view('tweets.search', compact('tweets'));
     }
 }
